@@ -13,10 +13,10 @@ pipeline {
                 dir('/Users/Mikita_Khatskevich/GatlingTMP2/Gatling_Training_Latest') {
                     sh '/opt/homebrew/bin/mvn gatling:test'
                 }
-                post {
-                    always {
-                        gatlingArchive()
-                    }
+            }
+            post {
+                always {
+                    gatlingArchive()
                 }
             }
         }
