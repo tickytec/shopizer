@@ -16,7 +16,8 @@ pipeline {
             }
             post {
                 always {
-                     archiveArtifacts includes: "target/gatling/perftestsimulation-*/**/*", fingerprint: true
+                     archiveArtifacts includes: "target/gatling/perftestsimulation-*/**/*", fingerprint: true, allowEmptyArchive: true
+
 
                 }
             }
