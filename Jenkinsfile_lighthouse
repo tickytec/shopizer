@@ -1,26 +1,26 @@
 
-   node('perf-testing-node') {
+  node {
     properties([
         disableConcurrentBuilds(),
         buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '25', numToKeepStr: '25')),
         parameters([
             choice(name: 'SCRIPT_TO_RUN', choices: 'Client_UI_test\nCoach_UI_test', description: 'Sitespeed script name'),
-            choice(name: 'ITERATIONS', choices: '1\n2\n3', description: 'Number of iterations'),
+            choice(name: 'ITERATIONS', choices: '1\n2\n3', description: 'Number of iterations')
         ])          
     ])
-        
+    
     stage('preparation') {
-        buildSucceeded = true        
-        PWD = pwd()
-        SCRIPT = 'shopizer.js'
-        DATE = String.format('%tF-%<tH-%<tM-%<tS', java.time.LocalDateTime.now())
-        RESULTS_DIR = "testResults/${SCRIPT}/${DATE}"
- 
-        DOCKER_CMD = "docker run --rm -v ${PWD}/testResults:${PWD}/reports -w ${PWD} ibombit/lighthouse-puppeteer-chrome:latest node ${SCRIPT}"
+        def buildSucceeded = true
+        def PWD = pwd()
+        def SCRIPT = "shopizer.js"
+        def DATE = String.format('%tF-%<tH-%<tM-%<tS', java.time.LocalDateTime.now())
+        def RESULTS_DIR = "testResults/${SCRIPT}/${DATE}"
+        
+        def DOCKER_CMD = "docker run --rm -v ${WORKSPACE}/testResults:${PWD}/reports -w ${PWD} ibombit/lighthouse-puppeteer-chrome:latest node ${WORKSPACE}/shopizer.js"
     }
     
     stage('runShell') {
-        print "---------- Running tests ----------"
+        echo "---------- Running tests ----------"
         try {
             sh DOCKER_CMD
         } catch (err) {
@@ -34,11 +34,9 @@
     }
     
     stage('addLinkToBuildDescription') {
-        script{
-            def URL = "http://13.11.111.11:9000"
-            def link = "<a href='%s/%s/%s'>%s</a><br/>"
-            currentBuild.setDescription(String.format(link, URL, SCRIPT, DATE, "Test result"))
-        }
+        def URL = "http://13.11.111.11:9000"
+        def link = "<a href='%s/%s/%s'>%s</a><br/>";
+        currentBuild.setDescription(String.format(link, URL, SCRIPT, DATE, "Test result"));
     }
     
     stage('publishReport') {
