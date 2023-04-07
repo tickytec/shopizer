@@ -4,7 +4,7 @@ pipeline {
         stage("Build Maven") {
             steps {
                 dir('/Users/Mikita_Khatskevich/GatlingTMP2/Gatling_Training_Latest') {
-                    sh 'mvn -B clean package'
+                    sh '/opt/homebrew/bin/mvn -B clean package'
                 }
             }
         }
