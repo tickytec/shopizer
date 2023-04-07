@@ -16,7 +16,7 @@ pipeline {
             }
             post {
                 always {
-                    gatlingArchive()
+                    archiveArtifacts('/Users/Mikita_Khatskevich/GatlingTMP2/Gatling_Training_Latest/target/gatling/**/*')
                 }
             }
         }
