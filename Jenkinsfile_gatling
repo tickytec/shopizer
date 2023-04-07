@@ -16,7 +16,8 @@ pipeline {
             }
             post {
                 always {
-                     archiveArtifacts artifacts: ('target/gatling/**/*', fingerprint: true, "gatling-reports")
+                     archiveArtifacts("target/gatling/perftestsimulation-*/**/*", "gatling-reports")
+
                 }
             }
         }
