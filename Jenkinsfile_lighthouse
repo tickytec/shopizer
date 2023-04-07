@@ -1,12 +1,4 @@
-node('perf-testing-node') {
-    properties([
-        disableConcurrentBuilds(),
-        buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '25', numToKeepStr: '25')),
-        parameters([
-            choice(name: 'SCRIPT_TO_RUN', choices: 'Client_UI_test\nCoach_UI_test', description: 'Sitespeed script name'),
-            choice(name: 'ITERATIONS', choices: '1\n2\n3', description: 'Number of iterations'),
-        ])          
-    ])
+
         
     stage('preparation') {
         buildSucceeded = true        
