@@ -11,7 +11,7 @@ pipeline {
         stage("Run Gatling") {
             steps {
                 dir('/Users/Mikita_Khatskevich/GatlingTMP2/Gatling_Training_Latest') {
-                    sh '/opt/homebrew/bin/mvnmvn gatling:test'
+                    sh '/opt/homebrew/bin/mvn gatling:test'
                 }
                 post {
                     always {
