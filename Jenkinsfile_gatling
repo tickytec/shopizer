@@ -3,18 +3,23 @@ pipeline {
     stages {
         stage("Build Maven") {
             steps {
-                sh '/opt/homebrew/bin/mvn -B clean package'
+                dir('/Users/Mikita_Khatskevich/GatlingTMP2/Gatling_Training_Latest') {
+                    sh 'mvn -B clean package'
+                }
             }
         }
         stage("Run Gatling") {
             steps {
-                sh 'mvn gatling:test'
-            }
-            post {
-                always {
-                    gatlingArchive()
+                dir('/Users/Mikita_Khatskevich/GatlingTMP2/Gatling_Training_Latest') {
+                    sh 'mvn gatling:test'
+                }
+                post {
+                    always {
+                        gatlingArchive()
+                    }
                 }
             }
         }
     }
 }
+
