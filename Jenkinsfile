@@ -12,7 +12,10 @@ node {
     }
 
     stage('publish results'){
-        sh "mv /tmp/reports/* ${WORKSPACE}/${BUILD_NUMBER}/"
+        sh "mkdir -p ${WORKSPACE}/${BUILD_NUMBER}/HtmlReport"
+        sh "mv /tmp/reports/HtmlReport/* ${WORKSPACE}/${BUILD_NUMBER}/HtmlReport/"
+        sh "mv /tmp/reports/JMeter.jtl ${WORKSPACE}/${BUILD_NUMBER}/"
         archiveArtifacts artifacts: "${WORKSPACE}/${BUILD_NUMBER}/JMeter.jtl, ${WORKSPACE}/${BUILD_NUMBER}/HtmlReport/index.html"
+    }
     }
 }
