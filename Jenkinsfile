@@ -8,7 +8,7 @@ node {
     stage('run test'){
         sh "mkdir -p /tmp/reports"
         sh "cd /opt/homebrew/bin"
-        sh "jmeter -Jmeter.save.saveservice.output_format=xml -n -t /Jmeter/Shopizer2.0.jmx -l /tmp/reports/JMeter.jtl -e -o /tmp/reports/HtmlReport"
+        sh "jmeter -n -t /Jmeter/Shopizer2.0.jmx -l /tmp/reports/JMeter.jtl -e -o /tmp/reports/HtmlReport"
     }
 
     stage('publish results'){
