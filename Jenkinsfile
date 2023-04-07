@@ -13,6 +13,6 @@ node {
 
     stage('publish results'){
         sh "mv /tmp/reports/* ${WORKSPACE}/${BUILD_NUMBER}/"
-        archiveArtifacts artifacts: "${WORKSPACE}/${BUILD_NUMBER}/**"
+        archiveArtifacts artifacts: "${WORKSPACE}/${BUILD_NUMBER}"
     }
 }
