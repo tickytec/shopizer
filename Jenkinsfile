@@ -1,6 +1,4 @@
 node {
-   
-
     stage("configure") {
         sh "mkdir ${WORKSPACE}/${BUILD_NUMBER}/"
     }
@@ -17,5 +15,5 @@ node {
         sh "mv /tmp/reports/JMeter.jtl ${WORKSPACE}/${BUILD_NUMBER}/"
         archiveArtifacts artifacts: "${WORKSPACE}/${BUILD_NUMBER}/JMeter.jtl, ${WORKSPACE}/${BUILD_NUMBER}/HtmlReport/index.html"
     }
-    }
 }
+
