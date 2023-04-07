@@ -1,7 +1,5 @@
 node {
-    stage('clone git repo'){
-        git 'https://github.com/tickytec/shopizer.git'
-    }
+   
 
     stage("configure") {
         sh "mkdir ${WORKSPACE}/${BUILD_NUMBER}/"
