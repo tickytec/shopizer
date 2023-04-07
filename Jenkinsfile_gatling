@@ -16,7 +16,8 @@ pipeline {
             }
             post {
                 always {
-                     gatlingArchive()
+                     gatlingArchive includes: '**/*', reportFilenamePattern: 'index.html', archiveFilename: 'gatling-reports.zip', allowEmptyArchive: true
+
 
                 }
             }
