@@ -37,8 +37,8 @@ node {
         currentBuild.setDescription(String.format(link, URL, SCRIPT_TO_RUN, DATE, "Test result"));
     }
 
-   stage('publishReport') {
-    archiveArtifacts allowEmptyArchive: true, artifacts: "**/*", onlyIfSuccessful: false // Use artifacts directory instead of testResults
+stage('publishReport') {
+    archiveArtifacts allowEmptyArchive: true, artifacts: "LightHouseReport/**/*", onlyIfSuccessful: false // archive contents of LightHouseReport directory
     publishHTML([
         allowMissing: true,
         alwaysLinkToLastBuild: true,
@@ -49,6 +49,7 @@ node {
         reportTitles: ""
     ])
 }
+
 
 
     stage('verifyBuild') {
