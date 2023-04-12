@@ -24,10 +24,10 @@ node {
         }
     }
 
-    stage('copyResults') {
-    sh "rsync -r ${RESULTS_DIR}/ ${PWD}/artifacts/" // Copy contents of testResults to artifacts directory
-    sh "rsync -r /Users/Mikita_Khatskevich/.jenkins/workspace/LightHouse_Jenkinsfile/testResults/shopizer.js/ ${PWD}/artifacts/"
+  stage('copyResults') {
+    sh "rsync -r ${RESULTS_DIR}/ ${PWD}/artifacts/$(date +%F-%H-%M-%S)/" // Copy contents of testResults to artifacts directory with current date-time
 }
+
 
 
     stage('addLinkToBuildDescription') {
