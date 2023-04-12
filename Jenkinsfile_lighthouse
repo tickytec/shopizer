@@ -22,7 +22,7 @@
     }
 
     stage('copyResults') {
-        sh "rsync -r ${PWD}/testResults/* /opt/sitespeed-result/"
+        sh "rsync -r ${PWD}/testResults/* /LightHouseReport/"
     }
 
     stage('addLinkToBuildDescription') {
