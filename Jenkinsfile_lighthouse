@@ -52,11 +52,20 @@ stage('publishReport') {
 
 
 
-    stage('verifyBuild') {
-        if (!buildSucceeded){
-            error("Build failed...")
-        } else{
-            echo 'Succeeded!'
-        }
+  stage('verifyBuild') {
+    def artifactsExist = false
+    try {
+        def artifactsDir = "${env.WORKSPACE}/artifacts"
+        sh "ls ${artifactsDir}"
+        artifactsExist = true
+    } catch (Exception ex) {
+        artifactsExist = false
     }
+    if (!buildSucceeded || !artifactsExist) {
+        error("Build failed...")
+    } else {
+        echo 'Succeeded!'
+    }
+}
+
 }
