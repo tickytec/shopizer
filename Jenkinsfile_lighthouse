@@ -25,7 +25,8 @@ node {
     }
 
   stage('copyResults') {
-    sh "rsync -r ${RESULTS_DIR}/ ${PWD}/artifacts/$(date +%F-%H-%M-%S)/" // Copy contents of testResults to artifacts directory with current date-time
+    sh "rsync -r ${RESULTS_DIR}/ ${PWD}/artifacts/\$(date +%F-%H-%M-%S)/"
+
 }
 
 
