@@ -34,18 +34,19 @@ node {
         currentBuild.setDescription(String.format(link, URL, SCRIPT_TO_RUN, DATE, "Test result"));
     }
 
-    stage('publishReport') {
-        archiveArtifacts allowEmptyArchive: true, artifacts: "artifacts/**/*", onlyIfSuccessful: false // Use artifacts directory instead of testResults
-        publishHTML([
-            allowMissing: true,
-            alwaysLinkToLastBuild: true,
-            keepAll: true,
-            reportDir: "artifacts",
-            reportFiles: "index.html",
-            reportName: "HTML Report",
-            reportTitles: ""
-        ])
-    }
+   stage('publishReport') {
+    archiveArtifacts allowEmptyArchive: true, artifacts: "**/*", onlyIfSuccessful: false // Use artifacts directory instead of testResults
+    publishHTML([
+        allowMissing: true,
+        alwaysLinkToLastBuild: true,
+        keepAll: true,
+        reportDir: "artifacts",
+        reportFiles: "index.html",
+        reportName: "HTML Report",
+        reportTitles: ""
+    ])
+}
+
 
     stage('verifyBuild') {
         if (!buildSucceeded){
