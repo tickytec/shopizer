@@ -7,7 +7,8 @@ node {
         DATE = String.format('%tF-%<tH-%<tM-%<tS', java.time.LocalDateTime.now())
         RESULTS_DIR = "${PWD}/testResults/${SCRIPT_TO_RUN}/${DATE}"
         sh "mkdir -p ${RESULTS_DIR}" // Create directory if it doesn't exist
-        Node /Users/Mikita_Khatskevich/.jenkins/workspace/LightHouse_Jenkinsfile/shopizer.js
+        sh 'node /Users/Mikita_Khatskevich/.jenkins/workspace/LightHouse_Jenkinsfile/shopizer.js'
+
     }
 
     stage('runShell') {
