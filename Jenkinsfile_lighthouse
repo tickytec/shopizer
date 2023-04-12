@@ -7,7 +7,7 @@ node {
         DATE = String.format('%tF-%<tH-%<tM-%<tS', java.time.LocalDateTime.now())
         RESULTS_DIR = "${PWD}/testResults/${SCRIPT_TO_RUN}/${DATE}"
         sh "mkdir -p ${RESULTS_DIR}" // Create directory if it doesn't exist
-        DOCKER_CMD = "export PATH=/usr/local/bin:$PATH && docker run --rm -v $WORKSPACE/testResults:$PWD/reports -w '$PWD' ibombit/lighthouse-puppeteer-chrome:latest node ${SCRIPT_TO_RUN}"
+        Node "/Users/Mikita_Khatskevich/.jenkins/workspace/LightHouse_Jenkinsfile/shopizer.js"
     }
 
     stage('runShell') {
