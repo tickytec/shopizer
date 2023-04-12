@@ -1,14 +1,15 @@
 node {
     def buildSucceeded = false
     def SCRIPT_TO_RUN = "shopizer.js"
-    sh 'export PATH=$PATH:/opt/homebrew/bin/node'
+   
 
     stage('preparation') {
         PWD = pwd()
         DATE = String.format('%tF-%<tH-%<tM-%<tS', java.time.LocalDateTime.now())
         RESULTS_DIR = "${PWD}/testResults/${SCRIPT_TO_RUN}/${DATE}"
         sh "mkdir -p ${RESULTS_DIR}" // Create directory if it doesn't exist
-        sh 'node /Users/Mikita_Khatskevich/.jenkins/workspace/LightHouse_Jenkinsfile/shopizer.js'
+        sh '/usr/local/bin/node /Users/Mikita_Khatskevich/.jenkins/workspace/LightHouse_Jenkinsfile/shopizer.js'
+
 
     }
 
