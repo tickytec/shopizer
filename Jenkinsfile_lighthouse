@@ -1,6 +1,7 @@
 node {
     def buildSucceeded = false
     def SCRIPT_TO_RUN = "shopizer.js"
+    sh 'export PATH=$PATH:/opt/homebrew/bin/node'
 
     stage('preparation') {
         PWD = pwd()
