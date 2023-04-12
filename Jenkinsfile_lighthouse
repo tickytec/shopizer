@@ -1,14 +1,14 @@
-
-  node {
+node {
     def buildSucceeded = false
     def SCRIPT_TO_RUN = "shopizer.js"
 
     stage('preparation') {
-    PWD=pwd()
-    DATE= String.format('%tF-%<tH-%<tM-%<tS', java.time.LocalDateTime.now())
-    RESULTS_DIR="testResults/${SCRIPT_TO_RUN}/${DATE}"
-    DOCKER_CMD = "export PATH=/usr/local/bin:$PATH && docker run --rm -v $WORKSPACE/testResults:$PWD/reports -w '$PWD' ibombit/lighthouse-puppeteer-chrome:latest node ${SCRIPT_TO_RUN}"
-}
+        PWD = pwd()
+        DATE = String.format('%tF-%<tH-%<tM-%<tS', java.time.LocalDateTime.now())
+        RESULTS_DIR = "${PWD}/testResults/${SCRIPT_TO_RUN}/${DATE}"
+        sh "mkdir -p ${RESULTS_DIR}" // Create directory if it doesn't exist
+        DOCKER_CMD = "export PATH=/usr/local/bin:$PATH && docker run --rm -v $WORKSPACE/testResults:$PWD/reports -w '$PWD' ibombit/lighthouse-puppeteer-chrome:latest node ${SCRIPT_TO_RUN}"
+    }
 
     stage('runShell') {
         print "---------- Running tests ----------"
@@ -22,7 +22,7 @@
     }
 
     stage('copyResults') {
-        sh "rsync -r ${PWD}/testResults/"
+        sh "rsync -r ${RESULTS_DIR}/ ${PWD}/artifacts/" // Copy contents of testResults to artifacts directory
     }
 
     stage('addLinkToBuildDescription') {
@@ -32,12 +32,12 @@
     }
 
     stage('publishReport') {
-        archiveArtifacts allowEmptyArchive: true, artifacts: "${RESULTS_DIR}/**/*", onlyIfSuccessful: false
+        archiveArtifacts allowEmptyArchive: true, artifacts: "artifacts/**/*", onlyIfSuccessful: false // Use artifacts directory instead of testResults
         publishHTML([
             allowMissing: true,
             alwaysLinkToLastBuild: true,
             keepAll: true,
-            reportDir: "${RESULTS_DIR}",
+            reportDir: "artifacts",
             reportFiles: "index.html",
             reportName: "HTML Report",
             reportTitles: ""
