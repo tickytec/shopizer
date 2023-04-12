@@ -22,7 +22,7 @@
     }
 
     stage('copyResults') {
-        sh "rsync -r ${PWD}/testResults/* /Users/Mikita_Khatskevich/LightHouseReport/"
+        sh "rsync -r ${PWD}/testResults/"
     }
 
     stage('addLinkToBuildDescription') {
